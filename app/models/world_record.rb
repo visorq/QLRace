@@ -15,10 +15,11 @@
 
 class WorldRecord < ActiveRecord::Base
   belongs_to :player
+  belongs_to :map
   validates_presence_of :map, :mode, :player_id, :time, :player
   validates_inclusion_of :mode, in: 0..3
-  validates_uniqueness_of :mode, scope: :map, message: 'One record per mode for
-                                                       each map.'
+  validates_uniqueness_of :mode, scope: :map_id, message: 'One record per mode for
+                                                          each map.'
 
   def self.check(score)
     wr = world_record(score[:map], score[:mode])
