@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161020181906) do
+ActiveRecord::Schema.define(version: 20170217223525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,16 @@ ActiveRecord::Schema.define(version: 20161020181906) do
 
   add_index "scores", ["map", "mode"], name: "index_scores_on_map_and_mode", using: :btree
   add_index "scores", ["player_id", "mode"], name: "index_scores_on_player_id_and_mode", using: :btree
+
+  create_table "team_scores", force: :cascade do |t|
+    t.string   "map"
+    t.integer  "mode"
+    t.integer  "player_ids", limit: 8,              array: true
+    t.integer  "time"
+    t.integer  "api_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "api_key"
